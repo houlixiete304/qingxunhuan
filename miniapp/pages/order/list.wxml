@@ -1,0 +1,21 @@
+<view class="page">
+  <van-tabs active="{{ activeTab }}" bind:change="onTabChange">
+    <van-tab wx:for="{{ tabs }}" wx:key="*this" title="{{ item }}" />
+  </van-tabs>
+
+  <view class="order-card" wx:for="{{ orders }}" wx:key="id">
+    <view class="order-header">
+      <text>订单号: {{ item.orderNo }}</text>
+      <text class="status">{{ item.status === 'PENDING' ? '待付款' : item.status === 'CANCELLED' ? '已取消' : item.status === 'COMPLETED' ? '已完成' : item.status }}</text>
+    </view>
+    <view class="order-body">
+      <view class="amount">¥{{ item.amount }}</view>
+      <view class="time">{{ item.createTime }}</view>
+    </view>
+    <view class="order-footer" wx:if="{{ item.status === 'PENDING' }}">
+      <button class="cancel-btn" data-id="{{ item.id }}" bindtap="onCancel">取消订单</button>
+    </view>
+  </view>
+
+  <van-empty wx:if="{{ orders.length === 0 }}" description="暂无订单" />
+</view>

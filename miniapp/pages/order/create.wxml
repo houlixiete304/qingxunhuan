@@ -1,0 +1,18 @@
+<view class="page" wx:if="{{ goods }}">
+  <view class="goods-info">
+    <van-image src="{{ goods.images[0] }}" width="140rpx" height="140rpx" fit="cover" />
+    <view class="goods-detail">
+      <text class="title">{{ goods.title }}</text>
+      <text class="price">¥{{ goods.price }}</text>
+    </view>
+  </view>
+
+  <van-cell-group>
+    <van-field value="{{ remark }}" placeholder="给卖家留言(选填)" label="备注" bind:change="onRemarkChange" />
+  </van-cell-group>
+
+  <view class="submit-area">
+    <text class="total">实付: <text class="amount">¥{{ goods.price }}</text></text>
+    <button class="submit-btn" bindtap="onSubmit">提交订单</button>
+  </view>
+</view>

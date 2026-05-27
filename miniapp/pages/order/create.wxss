@@ -1,0 +1,8 @@
+.goods-info { display: flex; padding: 30rpx; background: #fff; margin-bottom: 20rpx; }
+.goods-detail { margin-left: 20rpx; display: flex; flex-direction: column; justify-content: space-between; }
+.title { font-size: 30rpx; }
+.price { font-size: 36rpx; color: #f56c6c; font-weight: bold; }
+.submit-area { position: fixed; bottom: 0; left: 0; right: 0; padding: 20rpx 30rpx; background: #fff; display: flex; align-items: center; justify-content: space-between; border-top: 1rpx solid #eee; }
+.total { font-size: 28rpx; }
+.amount { font-size: 36rpx; color: #f56c6c; font-weight: bold; }
+.submit-btn { background: #07c160; color: #fff; border-radius: 36rpx; height: 72rpx; line-height: 72rpx; font-size: 28rpx; padding: 0 40rpx; }

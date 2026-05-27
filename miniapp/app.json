@@ -7,7 +7,9 @@
     "pages/mine/mine",
     "pages/login/login",
     "pages/goods/list",
-    "pages/goods/detail"
+    "pages/goods/detail",
+    "pages/order/create",
+    "pages/order/list"
   ],
   "window": {
     "navigationBarTextStyle": "black",
