@@ -94,3 +94,35 @@ CREATE TABLE IF NOT EXISTS `collect` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_user_goods` (`user_id`, `goods_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='收藏表';
+
+-- 订单表
+CREATE TABLE IF NOT EXISTS `order` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `order_no` VARCHAR(32) NOT NULL COMMENT '订单号',
+  `goods_id` BIGINT NOT NULL,
+  `buyer_id` BIGINT NOT NULL,
+  `seller_id` BIGINT NOT NULL,
+  `amount` DECIMAL(10,2) NOT NULL,
+  `status` VARCHAR(20) DEFAULT 'PENDING' COMMENT 'PENDING/PAID/SHIPPED/COMPLETED/CANCELLED',
+  `remark` VARCHAR(256) DEFAULT '',
+  `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `pay_time` DATETIME DEFAULT NULL,
+  `complete_time` DATETIME DEFAULT NULL,
+  `deleted` TINYINT DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_buyer_id` (`buyer_id`),
+  KEY `idx_seller_id` (`seller_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单表';
+
+-- 消息表
+CREATE TABLE IF NOT EXISTS `message` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `from_user_id` BIGINT NOT NULL,
+  `to_user_id` BIGINT NOT NULL,
+  `goods_id` BIGINT DEFAULT NULL,
+  `content` TEXT NOT NULL,
+  `is_read` TINYINT DEFAULT 0,
+  `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_from_to` (`from_user_id`, `to_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息表';
