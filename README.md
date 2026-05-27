@@ -38,37 +38,85 @@ cd qingxunhuan
 
 ## 二、数据库配置
 
-### 1. 确保 MySQL 8.0 已启动
+### 1. 安装 MySQL 8.0
 
-### 2. 创建数据库并导入表结构
+如果已安装可跳过。Windows 用户推荐直接下载 MySQL 安装包：
 
-用 MySQL 客户端（Navicat/命令行/python 均可）执行：
+https://dev.mysql.com/downloads/mysql/8.0.html
 
-```
-backend/src/main/resources/sql/schema.sql
-```
+安装时记住设置的 **root 密码**，后面需要用到。
 
-或者命令行方式：
+### 2. 确认 MySQL 已启动
+
+Windows 下按 `Win + R`，输入 `services.msc`，找到 `MySQL80` 服务确保状态为"正在运行"。
+
+### 3. 导入建表 SQL
+
+SQL 文件位置：`backend/src/main/resources/sql/schema.sql`
+
+这个文件会自动创建 `qingxunhuan` 数据库和全部 7 张表（user、admin、category、goods、collect、order、message），同时初始化商品分类数据和默认管理员账号。
+
+以下三种方式**任选一种**：
+
+---
+
+**方式一：Navicat / DataGrip 等 GUI 工具（推荐新手）**
+
+1. 打开 Navicat，点击 **连接 → MySQL**
+2. 连接名随便填，主机 `localhost`，端口 `3306`，用户名 `root`，密码填你的
+3. 双击连接，右键 **新建数据库**，数据库名 `qingxunhuan`，字符集选 `utf8mb4`
+4. 双击 `qingxunhuan` 打开，右键 **运行 SQL 文件**
+5. 选择 `backend/src/main/resources/sql/schema.sql`，点开始
+
+---
+
+**方式二：MySQL 命令行**
 
 ```bash
-# 方式一：用 mysql 命令行
-mysql -u root -p < backend/src/main/resources/sql/schema.sql
+# 先登录 MySQL（输入你的 root 密码）
+mysql -u root -p
 
-# 方式二：用 Python
+# 然后在 MySQL 命令行里执行：
+source backend/src/main/resources/sql/schema.sql
+
+# 查看是否成功
+SHOW TABLES;
+# 应该看到 7 张表
+```
+
+> 注意：`source` 后面要写 `schema.sql` 的**绝对路径**，比如 Windows 上可能长这样：
+> `source D:/Project/JavaProject/qingxunhuan/backend/src/main/resources/sql/schema.sql;`
+
+---
+
+**方式三：Python 脚本**
+
+```bash
 pip install pymysql
+```
+
+```bash
 python -c "
 import pymysql
 conn = pymysql.connect(host='localhost', user='root', password='你的密码')
+cur = conn.cursor()
 with open('backend/src/main/resources/sql/schema.sql', 'r', encoding='utf-8') as f:
     for stmt in f.read().split(';'):
-        if stmt.strip() and not stmt.strip().startswith('--'):
-            try: conn.cursor().execute(stmt)
-            except: pass
-    conn.commit()
-    conn.close()
-print('Done')
+        stmt = stmt.strip()
+        if stmt and not stmt.startswith('--'):
+            try:
+                cur.execute(stmt)
+                print('.', end='')
+            except Exception as e:
+                print(f'Skip: {e}')
+conn.commit()
+cur.execute('SHOW TABLES')
+print([t[0] for t in cur.fetchall()])
+conn.close()
 "
 ```
+
+成功后应看到：`['admin', 'category', 'collect', 'goods', 'message', 'order', 'user']`
 
 ### 3. 修改数据库连接信息
 
