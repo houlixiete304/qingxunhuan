@@ -13,14 +13,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import request from '@/utils/request'
 
 const stats = ref([
-  { label: '用户总数', value: '--' },
-  { label: '商品总数', value: '--' },
-  { label: '订单总数', value: '--' },
-  { label: '成交额', value: '--' }
+  { label: '用户总数', value: 0 },
+  { label: '商品总数', value: 0 },
+  { label: '订单总数', value: 0 }
 ])
+
+onMounted(async () => {
+  try {
+    const res = await request.get('/admin/statistics/overview')
+    if (res.data) {
+      stats.value[0].value = res.data.userCount || 0
+      stats.value[1].value = res.data.goodsCount || 0
+      stats.value[2].value = res.data.orderCount || 0
+    }
+  } catch {}
+})
 </script>
 
 <style scoped>
