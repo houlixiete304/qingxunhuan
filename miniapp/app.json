@@ -4,7 +4,8 @@
     "pages/category/category",
     "pages/publish/publish",
     "pages/chat/chat",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/login/login"
   ],
   "window": {
     "navigationBarTextStyle": "black",
