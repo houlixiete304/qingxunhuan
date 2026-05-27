@@ -1,0 +1,20 @@
+.page {
+  padding-bottom: 100rpx;
+}
+.submit-btn {
+  padding: 40rpx 20rpx;
+}
+.category-picker {
+  padding: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+.cp-item {
+  width: 30%;
+  margin: 1.5%;
+  padding: 20rpx 0;
+  text-align: center;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}

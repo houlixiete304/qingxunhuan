@@ -1,0 +1,14 @@
+<view class="page">
+  <van-cell
+    wx:for="{{ conversations }}"
+    wx:key="id"
+    title="{{ item.nickname }}"
+    label="{{ item.lastMessage }}"
+    is-link
+    data-user-id="{{ item.userId }}"
+    bind:click="goChat"
+  >
+    <van-image slot="icon" src="{{ item.avatar }}" width="44" height="44" round />
+  </van-cell>
+  <van-empty wx:if="{{ conversations.length === 0 }}" description="暂无消息" />
+</view>

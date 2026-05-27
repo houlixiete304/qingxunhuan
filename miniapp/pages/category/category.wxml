@@ -1,0 +1,26 @@
+<view class="page">
+  <view class="sidebar">
+    <view
+      class="sidebar-item {{ activeIndex === index ? 'active' : '' }}"
+      wx:for="{{ categories }}"
+      wx:key="id"
+      data-index="{{ index }}"
+      bindtap="onTapCategory"
+    >
+      {{ item.name }}
+    </view>
+  </view>
+  <view class="content">
+    <view
+      class="sub-item"
+      wx:for="{{ categories[activeIndex].children }}"
+      wx:key="id"
+      data-id="{{ item.id }}"
+      bindtap="goGoodsList"
+    >
+      <van-image src="{{ item.icon }}" width="60" height="60" />
+      <text>{{ item.name }}</text>
+    </view>
+    <van-empty wx:if="{{ !categories[activeIndex].children || categories[activeIndex].children.length === 0 }}" description="暂无子分类" />
+  </view>
+</view>

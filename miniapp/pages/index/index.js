@@ -1,49 +1,68 @@
-// index.js
-const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+const api = require('../../utils/request')
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {
-      avatarUrl: defaultAvatarUrl,
-      nickName: '',
-    },
-    hasUserInfo: false,
-    canIUseGetUserProfile: wx.canIUse('getUserProfile'),
-    canIUseNicknameComp: wx.canIUse('input.type.nickname'),
+    searchValue: '',
+    categories: [],
+    goodsList: [],
+    page: 1,
+    loading: false,
+    hasMore: true
   },
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs'
+
+  onLoad() {
+    this.loadCategories()
+    this.loadGoods()
+  },
+
+  onShow() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ active: 0 })
+    }
+  },
+
+  onPullDownRefresh() {
+    this.setData({ page: 1, goodsList: [], hasMore: true })
+    this.loadGoods()
+    wx.stopPullDownRefresh()
+  },
+
+  onReachBottom() {
+    if (this.data.loading || !this.data.hasMore) return
+    this.setData({ page: this.data.page + 1 })
+    this.loadGoods()
+  },
+
+  loadCategories() {
+    api.get('/category/list').then(res => {
+      this.setData({ categories: res.data || [] })
+    }).catch(() => {})
+  },
+
+  loadGoods() {
+    this.setData({ loading: true })
+    api.get('/goods', { page: this.data.page, size: 10 }).then(res => {
+      const list = res.data?.records || []
+      this.setData({
+        goodsList: this.data.page === 1 ? list : [...this.data.goodsList, ...list],
+        hasMore: list.length >= 10
+      })
+    }).catch(() => {}).finally(() => {
+      this.setData({ loading: false })
     })
   },
-  onChooseAvatar(e) {
-    const { avatarUrl } = e.detail
-    const { nickName } = this.data.userInfo
-    this.setData({
-      "userInfo.avatarUrl": avatarUrl,
-      hasUserInfo: nickName && avatarUrl && avatarUrl !== defaultAvatarUrl,
-    })
+
+  onSearch() {
+    wx.navigateTo({ url: '/pages/goods/list?keyword=' + this.data.searchValue })
   },
-  onInputChange(e) {
-    const nickName = e.detail.value
-    const { avatarUrl } = this.data.userInfo
-    this.setData({
-      "userInfo.nickName": nickName,
-      hasUserInfo: nickName && avatarUrl && avatarUrl !== defaultAvatarUrl,
-    })
+
+  goDetail(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({ url: '/pages/goods/detail?id=' + id })
   },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    })
-  },
+
+  goCategory(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({ url: '/pages/goods/list?categoryId=' + id })
+  }
 })

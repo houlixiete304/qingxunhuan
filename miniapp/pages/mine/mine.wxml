@@ -1,0 +1,19 @@
+<view class="page">
+  <view class="header" wx:if="{{ isLogin }}">
+    <van-image src="{{ userInfo.avatar }}" width="70" height="70" round />
+    <view class="user-name">{{ userInfo.nickname }}</view>
+  </view>
+  <view class="header" wx:else bindtap="onLogin">
+    <van-image src="/images/default-avatar.png" width="70" height="70" round />
+    <view class="user-name">点击登录</view>
+  </view>
+
+  <van-cell-group>
+    <van-cell title="我的发布" icon="shop-o" is-link bind:click="goMyGoods" />
+    <van-cell title="我的订单" icon="orders-o" is-link bind:click="goMyOrders" />
+  </van-cell-group>
+
+  <view class="logout-btn" wx:if="{{ isLogin }}">
+    <van-button type="danger" block bind:click="onLogout">退出登录</van-button>
+  </view>
+</view>

@@ -1,0 +1,48 @@
+<view class="page">
+  <van-cell-group>
+    <van-field label="图片" required>
+      <van-uploader
+        file-list="{{ images }}"
+        max-count="9"
+        bind:after-read="onUploadImage"
+        bind:delete="onDeleteImage"
+      />
+    </van-field>
+    <van-field value="{{ title }}" placeholder="请输入商品标题" label="标题" required bind:change="onTitleChange" />
+    <van-field value="{{ price }}" type="digit" placeholder="请输入售价" label="售价" required bind:change="onPriceChange" />
+    <van-field value="{{ originalPrice }}" type="digit" placeholder="请输入原价(选填)" label="原价" bind:change="onOriginalPriceChange" />
+    <van-field value="{{ condition }}" readonly placeholder="请选择成色" label="成色" required bind:click="onShowCondition" is-link />
+    <van-field value="{{ categoryName }}" readonly placeholder="请选择分类" label="分类" required bind:click="onShowCategory" is-link />
+    <van-field
+      value="{{ description }}"
+      type="textarea"
+      placeholder="描述一下你的宝贝吧..."
+      label="描述"
+      autosize
+      bind:change="onDescChange"
+    />
+  </van-cell-group>
+
+  <view class="submit-btn">
+    <van-button type="primary" block bind:click="onSubmit">发布</van-button>
+  </view>
+
+  <van-popup show="{{ showCondition }}" position="bottom" bind:close="onCloseCondition">
+    <van-picker columns="{{ conditionOptions }}" bind:confirm="onSelectCondition" bind:cancel="onCloseCondition" />
+  </van-popup>
+
+  <van-popup show="{{ showCategory }}" position="bottom" bind:close="onCloseCategory">
+    <view class="category-picker">
+      <view
+        class="cp-item"
+        wx:for="{{ categories }}"
+        wx:key="id"
+        data-id="{{ item.id }}"
+        data-name="{{ item.name }}"
+        bindtap="onSelectCategory"
+      >
+        {{ item.name }}
+      </view>
+    </view>
+  </van-popup>
+</view>

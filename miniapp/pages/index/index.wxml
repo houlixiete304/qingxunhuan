@@ -1,27 +1,24 @@
-<!--index.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <view class="userinfo">
-      <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
-        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-        </button>
-        <view class="nickname-wrapper">
-          <text class="nickname-label">昵称</text>
-          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
-        </view>
-      </block>
-      <block wx:elif="{{!hasUserInfo}}">
-        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-        <view wx:else> 请使用2.10.4及以上版本基础库 </view>
-      </block>
-      <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      </block>
-    </view>
-    <view class="usermotto">
-      <text class="user-motto">{{motto}}</text>
+<view class="page">
+  <van-search value="{{ searchValue }}" placeholder="搜索闲置好物" bind:search="onSearch" />
+
+  <view class="category-bar">
+    <view class="category-item" wx:for="{{ categories }}" wx:key="id" data-id="{{ item.id }}" bindtap="goCategory">
+      <van-image src="{{ item.icon }}" width="40" height="40" round />
+      <text>{{ item.name }}</text>
     </view>
   </view>
-</scroll-view>
+
+  <view class="goods-list">
+    <view class="goods-card" wx:for="{{ goodsList }}" wx:key="id" data-id="{{ item.id }}" bindtap="goDetail">
+      <van-image src="{{ item.images[0] }}" width="100%" height="200rpx" fit="cover" />
+      <view class="goods-info">
+        <view class="goods-title">{{ item.title }}</view>
+        <view class="goods-price">¥{{ item.price }}</view>
+      </view>
+    </view>
+  </view>
+
+  <van-loading wx:if="{{ loading }}" />
+  <view wx:if="{{ !hasMore && goodsList.length > 0 }}" class="no-more">没有更多了</view>
+  <van-empty wx:if="{{ !loading && goodsList.length === 0 }}" description="暂无商品" />
+</view>

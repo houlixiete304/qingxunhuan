@@ -1,4 +1,5 @@
 {
-  "usingComponents": {
-  }
+  "navigationBarTitleText": "青芽",
+  "enablePullDownRefresh": true,
+  "usingComponents": {}
 }
