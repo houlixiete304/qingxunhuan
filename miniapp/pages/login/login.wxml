@@ -1,7 +1,7 @@
 <view class="page">
   <view class="logo-area">
     <image class="logo" src="/images/tab/home-active.png" mode="aspectFit" />
-    <text class="app-name">青芽</text>
+    <text class="app-name">青循环</text>
     <text class="slogan">校园二手交易平台</text>
   </view>
 

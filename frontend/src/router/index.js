@@ -46,7 +46,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title ? `${to.meta.title} - 青芽管理端` : '青芽管理端'
+  document.title = to.meta.title ? `${to.meta.title} - 青循环管理端` : '青循环管理端'
   const token = localStorage.getItem('token')
   if (to.path !== '/login' && !token) {
     next('/login')

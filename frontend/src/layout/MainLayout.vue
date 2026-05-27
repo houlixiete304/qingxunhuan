@@ -1,7 +1,7 @@
 <template>
   <el-container class="layout">
     <el-aside width="220px">
-      <div class="logo">青芽管理端</div>
+      <div class="logo">青循环管理端</div>
       <el-menu
         :default-active="$route.path"
         router

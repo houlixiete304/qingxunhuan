@@ -1,7 +1,7 @@
 {
   "name": "qingxunhuan-miniapp",
   "version": "1.0.0",
-  "description": "青芽 - 校园二手交易平台小程序",
+  "description": "青循环 - 校园二手交易平台小程序",
   "dependencies": {
     "@vant/weapp": "^1.11.7"
   }

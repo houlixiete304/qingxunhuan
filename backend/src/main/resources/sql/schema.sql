@@ -1,4 +1,4 @@
--- 青芽数据库初始化脚本
+-- 青循环数据库初始化脚本
 CREATE DATABASE IF NOT EXISTS qingxunhuan DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE qingxunhuan;

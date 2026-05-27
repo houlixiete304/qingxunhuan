@@ -12,7 +12,7 @@
 	<artifactId>qingxunhuan</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>backend</name>
-	<description>青芽 - 校园二手交易平台后端</description>
+	<description>青循环 - 校园二手交易平台后端</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
