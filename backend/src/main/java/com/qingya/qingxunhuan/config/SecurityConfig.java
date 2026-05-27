@@ -3,6 +3,7 @@ package com.qingya.qingxunhuan.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,7 +24,11 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/user/wx-login", "/api/admin/login", "/api/health").permitAll()
+                .requestMatchers(
+                    "/api/user/wx-login", "/api/admin/login", "/api/health",
+                    "/api/category/**", "/uploads/**"
+                ).permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/goods", "/api/goods/**").permitAll()
                 .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
             )
