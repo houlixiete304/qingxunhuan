@@ -20,7 +20,7 @@
       </el-table-column>
       <el-table-column label="操作" width="150">
         <template #default="{ row }">
-          <el-button type="primary" size="small" @click="viewDetail(row)">查看</el-button>
+          
           <el-popconfirm title="确定下架该商品？" @confirm="offShelf(row.id)">
             <template #reference>
               <el-button type="danger" size="small" :disabled="row.status === 0">下架</el-button>
@@ -62,8 +62,6 @@ function loadData() {
   }).finally(() => loading.value = false)
 }
 
-function viewDetail(row) {
-  window.open(`/goods/${row.id}`, '_blank')
 }
 
 function offShelf(id) {
