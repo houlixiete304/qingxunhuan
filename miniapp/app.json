@@ -9,7 +9,8 @@
     "pages/goods/list",
     "pages/goods/detail",
     "pages/order/create",
-    "pages/order/list"
+    "pages/order/list",
+    "pages/chat/detail"
   ],
   "window": {
     "navigationBarTextStyle": "black",

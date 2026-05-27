@@ -1,0 +1,14 @@
+<view class="page">
+  <scroll-view class="msg-list" scroll-y scroll-into-view="{{ scrollIntoView }}" scroll-with-animation>
+    <view wx:for="{{ messages }}" wx:key="id" id="msg-{{ index }}" class="msg-item {{ item.fromUserId === userId ? '' : 'self' }}">
+      <view class="msg-bubble">{{ item.content }}</view>
+      <view class="msg-time">{{ item.createTime }}</view>
+    </view>
+    <van-empty wx:if="{{ messages.length === 0 }}" description="开始聊天吧" />
+  </scroll-view>
+
+  <view class="input-bar">
+    <input class="input" value="{{ inputText }}" placeholder="输入消息..." bindinput="onInput" confirm-type="send" bindconfirm="onSend" />
+    <button class="send-btn" bindtap="onSend">发送</button>
+  </view>
+</view>
