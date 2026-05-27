@@ -1,10 +1,6 @@
 <view class="page" wx:if="{{ goods }}">
-  <van-swipe class="swiper" autoplay="{{ false }}" indicator-color="#07c160">
-    <van-swipe-item wx:for="{{ goods.images }}" wx:key="*this">
-      <van-image src="{{ item }}" width="100%" height="600rpx" fit="cover" />
-    </van-swipe-item>
-  </van-swipe>
-  <view wx:if="{{ !goods.images || goods.images.length === 0 }}" class="no-img">
+  <van-image wx:if="{{ goods.images && goods.images.length > 0 }}" src="{{ goods.images[0] }}" width="100%" height="600rpx" fit="cover" />
+  <view wx:else class="no-img">
     <van-image src="/images/tab/home.png" width="200rpx" height="200rpx" />
   </view>
 
