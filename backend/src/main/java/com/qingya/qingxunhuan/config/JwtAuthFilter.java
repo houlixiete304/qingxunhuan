@@ -14,7 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.List;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Component
 @RequiredArgsConstructor
@@ -43,9 +45,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 return;
             }
 
+            List<SimpleGrantedAuthority> authorities = "admin".equals(type)
+                    ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                    : List.of(new SimpleGrantedAuthority("ROLE_USER"));
+
             UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userId, null, Collections.emptyList());
-            authentication.setDetails(type);
+                    new UsernamePasswordAuthenticationToken(userId, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (JWTVerificationException e) {
             // token无效，继续过滤链
