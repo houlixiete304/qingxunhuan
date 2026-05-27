@@ -1,0 +1,14 @@
+.page { padding-bottom: 120rpx; background: #f5f5f5; min-height: 100vh; }
+.no-img { text-align: center; padding: 80rpx 0; background: #fff; }
+.info-card { background: #fff; margin: 16rpx; padding: 24rpx; border-radius: 12rpx; }
+.price-row { margin-bottom: 12rpx; }
+.price { font-size: 40rpx; color: #f56c6c; font-weight: bold; }
+.original { font-size: 26rpx; color: #999; text-decoration: line-through; margin-left: 16rpx; }
+.title { font-size: 32rpx; color: #333; font-weight: bold; }
+.meta { display: flex; gap: 24rpx; margin-top: 16rpx; font-size: 24rpx; color: #999; }
+.section-title { font-size: 30rpx; font-weight: bold; margin-bottom: 12rpx; }
+.desc { font-size: 28rpx; color: #666; line-height: 1.6; }
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; display: flex; align-items: center; background: #fff; padding: 16rpx 24rpx; border-top: 1rpx solid #eee; }
+.collect-btn { display: flex; flex-direction: column; align-items: center; font-size: 20rpx; color: #666; margin-right: 24rpx; }
+.buy-btn { flex: 1; height: 76rpx; line-height: 76rpx; text-align: center; border-radius: 38rpx; font-size: 28rpx; background: #07c160; color: #fff; margin-left: 12rpx; }
+.buy-btn.contact { background: #fff; color: #07c160; border: 2rpx solid #07c160; }

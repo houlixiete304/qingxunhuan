@@ -1,0 +1,20 @@
+<view class="page">
+  <van-search value="{{ keyword }}" placeholder="搜索商品" bind:search="onSearch" />
+
+  <view class="goods-list">
+    <view class="goods-card" wx:for="{{ goodsList }}" wx:key="id" data-id="{{ item.id }}" bindtap="goDetail">
+      <van-image src="{{ item.images[0] }}" width="100%" height="360rpx" fit="cover" />
+      <view class="info">
+        <view class="title">{{ item.title }}</view>
+        <view class="bottom">
+          <text class="price">¥{{ item.price }}</text>
+          <text class="views">{{ item.viewCount }}次浏览</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <van-loading wx:if="{{ loading }}" />
+  <view wx:if="{{ !hasMore && goodsList.length > 0 }}" class="no-more">没有更多了</view>
+  <van-empty wx:if="{{ !loading && goodsList.length === 0 }}" description="暂无商品" />
+</view>

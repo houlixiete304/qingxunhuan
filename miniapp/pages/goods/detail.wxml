@@ -1,0 +1,39 @@
+<view class="page" wx:if="{{ goods }}">
+  <van-swipe class="swiper" autoplay="{{ false }}" indicator-color="#07c160">
+    <van-swipe-item wx:for="{{ goods.images }}" wx:key="*this">
+      <van-image src="{{ item }}" width="100%" height="600rpx" fit="cover" />
+    </van-swipe-item>
+  </van-swipe>
+  <view wx:if="{{ !goods.images || goods.images.length === 0 }}" class="no-img">
+    <van-image src="/images/tab/home.png" width="200rpx" height="200rpx" />
+  </view>
+
+  <view class="info-card">
+    <view class="price-row">
+      <text class="price">¥{{ goods.price }}</text>
+      <text class="original" wx:if="{{ goods.originalPrice }}">¥{{ goods.originalPrice }}</text>
+    </view>
+    <view class="title">{{ goods.title }}</view>
+    <view class="meta">
+      <text>{{ goods.viewCount }}浏览</text>
+      <text>{{ goods.collectCount }}收藏</text>
+      <text>{{ goods.condition }}</text>
+    </view>
+  </view>
+
+  <view class="info-card" wx:if="{{ goods.description }}">
+    <view class="section-title">商品描述</view>
+    <view class="desc">{{ goods.description }}</view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="collect-btn" bindtap="onCollect">
+      <van-icon name="{{ collected ? 'star' : 'star-o' }}" color="{{ collected ? '#ff976a' : '#666' }}" size="22px" />
+      <text>{{ collected ? '已收藏' : '收藏' }}</text>
+    </view>
+    <button class="buy-btn contact" bindtap="onContact">联系卖家</button>
+    <button class="buy-btn" bindtap="onBuy">立即购买</button>
+  </view>
+</view>
+
+<van-empty wx:if="{{ !goods }}" description="商品不存在" />
