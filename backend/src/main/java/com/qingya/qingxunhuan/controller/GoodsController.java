@@ -20,10 +20,10 @@ public class GoodsController {
     public Result<IPage<Goods>> list(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) String categoryIdStr,
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String school) {
-        return Result.success(goodsService.pageGoods(page, size, categoryId, keyword, school));
+        return Result.success(goodsService.pageGoods(page, size, categoryIdStr, keyword, school));
     }
 
     @GetMapping("/{id}")

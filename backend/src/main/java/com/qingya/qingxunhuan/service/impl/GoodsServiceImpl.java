@@ -20,10 +20,14 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     private final CollectMapper collectMapper;
 
     @Override
-    public IPage<Goods> pageGoods(int page, int size, Long categoryId, String keyword, String school) {
+    public IPage<Goods> pageGoods(int page, int size, String categoryIdStr, String keyword, String school) {
         LambdaQueryWrapper<Goods> wrapper = new LambdaQueryWrapper<Goods>()
                 .eq(Goods::getStatus, 1)
                 .orderByDesc(Goods::getCreateTime);
+        Long categoryId = null;
+        if (categoryIdStr != null && !"undefined".equals(categoryIdStr) && !"null".equals(categoryIdStr) && !categoryIdStr.isEmpty()) {
+            categoryId = Long.valueOf(categoryIdStr);
+        }
         if (categoryId != null) {
             wrapper.eq(Goods::getCategoryId, categoryId);
         }

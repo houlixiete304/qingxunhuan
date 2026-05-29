@@ -35,7 +35,14 @@ function request(options) {
 }
 
 module.exports = {
-  get: (url, data) => request({ url, method: 'GET', data }),
+  get: (url, data) => {
+    if (data) {
+      Object.keys(data).forEach(k => {
+        if (data[k] === undefined || data[k] === null) delete data[k]
+      })
+    }
+    return request({ url, method: 'GET', data })
+  },
   post: (url, data) => request({ url, method: 'POST', data }),
   put: (url, data) => request({ url, method: 'PUT', data }),
   del: (url, data) => request({ url, method: 'DELETE', data })

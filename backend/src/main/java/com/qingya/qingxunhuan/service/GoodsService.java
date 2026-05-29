@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.qingya.qingxunhuan.entity.Goods;
 
 public interface GoodsService extends IService<Goods> {
-    IPage<Goods> pageGoods(int page, int size, Long categoryId, String keyword, String school);
+    IPage<Goods> pageGoods(int page, int size, String categoryIdStr, String keyword, String school);
     Goods publish(Goods goods, Long userId);
     Goods updateGoods(Goods goods, Long userId);
     void deleteGoods(Long id, Long userId);
